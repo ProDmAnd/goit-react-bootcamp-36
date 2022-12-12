@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "name": "Tom Cruise",
+    "age": 60,
+    "height": 1.7,
+    "isOnline": true,
+    "avatar": "https://file.liga.net/images/general/2018/04/05/20180405151145-8197.jpg?v=1522937702",
+    "friends": [
+      {
+        "id": 2,
+        "name": "Brad Pitt",
+        "isOnline": false,
+        "avatar": "https://kinoafisha.ua/upload/persons/235/src_22jvyi8xbred-pitt.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Simon Pegg",
+        "isOnline": false,
+        "avatar": "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcQAoQqUrvuI3NdoMPsnu5L0irXmU5k5BW8hQWEENnMuwlXo3mzOvpXUdfCs1B3a9Q6Ln7R-z-1PAbda3s8"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Brad Pitt",
+    "age": 58,
+    "height": 1.8,
+    "isOnline": false,
+    "avatar": "https://kinoafisha.ua/upload/persons/235/src_22jvyi8xbred-pitt.jpg",
+    "friends": [
+      {
+        "id": 1,
+        "name": "Tom Cruise",
+        "isOnline": true,
+        "avatar": "https://file.liga.net/images/general/2018/04/05/20180405151145-8197.jpg?v=1522937702"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Simon Pegg",
+    "age": 52,
+    "height": 1.78,
+    "isOnline": true,
+    "avatar": "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcQAoQqUrvuI3NdoMPsnu5L0irXmU5k5BW8hQWEENnMuwlXo3mzOvpXUdfCs1B3a9Q6Ln7R-z-1PAbda3s8",
+    "friends": [
+      {
+        "id": 1,
+        "name": "Tom Cruise",
+        "isOnline": true,
+        "avatar": "https://file.liga.net/images/general/2018/04/05/20180405151145-8197.jpg?v=1522937702"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Blake Lively",
+    "age": 35,
+    "height": 1.78,
+    "isOnline": true,
+    "avatar": "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTKFp94DttxxUjMZSRrEQ_Q4H7eCNXSzb8CaugxR6B87aMnijRQVIjLVspEcWlCwsPFLEzUlmvNrsCYS1g",
+    "friends": [
+      {
+        "id": 5,
+        "name": "Emily Blunt",
+        "isOnline": false,
+        "avatar": "https://cdn.britannica.com/16/189516-050-E05AC3FA/Emily-Blunt-2013.jpg"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Emily Blunt",
+    "age": 39,
+    "height": 1.69,
+    "isOnline": false,
+    "avatar": "https://cdn.britannica.com/16/189516-050-E05AC3FA/Emily-Blunt-2013.jpg",
+    "friends": [
+      {
+        "id": 4,
+        "name": "Blake Lively",
+        "isOnline": true,
+        "avatar": "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTKFp94DttxxUjMZSRrEQ_Q4H7eCNXSzb8CaugxR6B87aMnijRQVIjLVspEcWlCwsPFLEzUlmvNrsCYS1g"
+      }
+    ]
+  }
+]
