@@ -1,0 +1,6 @@
+.pageWrap {
+    max-height: 100vh;
+    max-width: 100vw;
+    overflow: auto;
+    padding: 3rem 3rem 3rem;
+}
