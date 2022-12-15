@@ -1,4 +1,5 @@
 import { Counter, Wrapper } from 'components';
+import ControlledForm from 'components/ControlledForm/ControlledForm';
 import UncontrolledForm from 'components/UncontrolledForm/UncontrolledForm';
 
 export const App = () => {
@@ -6,7 +7,8 @@ export const App = () => {
     <Wrapper>
       {/* <Counter /> */}
       {/* <Counter initialValue={10} increment={10} /> */}
-      <UncontrolledForm />
+      {/* <UncontrolledForm /> */}
+      <ControlledForm />
     </Wrapper>
   );
 };
