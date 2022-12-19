@@ -21,10 +21,10 @@ class ControlledCitySelect extends PureComponent {
     );
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log(
-      'Controlled CIty Select componentDidUpdate',
-      this.state.selectedPostId
-    );
+    // console.log(
+    //   'Controlled CIty Select componentDidUpdate',
+    //   this.state.selectedPostId
+    // );
     // console.log(prevProps, this.props);
     if (prevProps.city !== this.props.city) {
       this.changeCities();

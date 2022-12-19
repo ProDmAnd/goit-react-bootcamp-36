@@ -4,6 +4,9 @@ import Button from 'components/Button/Button';
 import { CITY_OPTIONS, GENDER_OPTIONS } from 'constants/loginForm';
 import CitySelect from 'components/CitySelect/CitySelect';
 import ControlledCitySelect from 'components/ControlledCitySelect/ControlledCitySelect';
+import CityFinder from 'components/CityFinder/CityFinder';
+import WarehouseFinder from 'components/WarehouseFinder/WarehouseFinder';
+import WarehouseTypeSelect from 'components/WarehouseTypeSelect/WarehouseTypeSelect';
 
 class ControlledForm extends Component {
   emailField = 'email';
@@ -14,6 +17,8 @@ class ControlledForm extends Component {
     agree: false,
     sex: GENDER_OPTIONS.skip,
     city: CITY_OPTIONS.Kyiv,
+    warehouseType: '',
+    deliveryRef: '',
   };
 
   // static getDerivedStateFromProps(props, state) {
@@ -35,7 +40,7 @@ class ControlledForm extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('Form componentDidUpdate', prevProps, this.props);
+    console.log('Form componentDidUpdate');
   }
 
   handleSubmit = event => {
@@ -57,6 +62,14 @@ class ControlledForm extends Component {
     const { name, checked } = event.target;
     this.setState({ [name]: checked });
     // additional logic;
+  };
+
+  selectWarehouseType = warehouseType => {
+    this.setState({ warehouseType });
+  };
+
+  selectPostCity = deliveryRef => {
+    this.setState({ deliveryRef });
   };
 
   render() {
@@ -125,7 +138,19 @@ class ControlledForm extends Component {
           />
         </div>
         <div>
-          {city !== CITY_OPTIONS.Lviv && <ControlledCitySelect city={city} />}
+          <h3>Вибір відділення нової пошти</h3>
+        </div>
+        <div>
+          <WarehouseTypeSelect onSelect={this.selectWarehouseType} />
+        </div>
+        <div>
+          <CityFinder onSelect={this.selectPostCity} />
+        </div>
+        <div>
+          <WarehouseFinder
+            warehouseType={this.state.warehouseType}
+            deliveryRef={this.state.deliveryRef}
+          />
         </div>
         <Button disabled={!canSubmit} type="submit">
           Log in
