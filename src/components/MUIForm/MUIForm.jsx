@@ -42,6 +42,14 @@ const INITIAL_STATE = {
 class MUIForm extends Component {
   state = { ...INITIAL_STATE };
 
+  componentDidMount() {
+    console.log('Component did mount');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('component did update', prevProps, this.props);
+  }
+
   handleChangeValue = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -100,7 +108,7 @@ class MUIForm extends Component {
             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue={gender}
+              value={gender}
               name="gender"
               onChange={this.handleChangeValue}
             >

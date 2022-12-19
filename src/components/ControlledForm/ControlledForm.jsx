@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import css from './ControlledFrom.module.css';
 import Button from 'components/Button/Button';
 import { CITY_OPTIONS, GENDER_OPTIONS } from 'constants/loginForm';
+import CitySelect from 'components/CitySelect/CitySelect';
+import ControlledCitySelect from 'components/ControlledCitySelect/ControlledCitySelect';
 
 class ControlledForm extends Component {
   emailField = 'email';
@@ -13,6 +15,28 @@ class ControlledForm extends Component {
     sex: GENDER_OPTIONS.skip,
     city: CITY_OPTIONS.Kyiv,
   };
+
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.city === CITY_OPTIONS.Kyiv) {
+  //     return {
+  //       email: '',
+  //       password: '',
+  //       agree: false,
+  //       sex: GENDER_OPTIONS.skip,
+  //       city: CITY_OPTIONS.Kyiv,
+  //     };
+  //   }
+
+  //   return null;
+  // }
+
+  componentDidMount() {
+    console.log('Form Component did mount');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('Form componentDidUpdate', prevProps, this.props);
+  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -27,6 +51,12 @@ class ControlledForm extends Component {
   handleChangeChecked = event => {
     const { name, checked } = event.target;
     this.setState({ [name]: checked });
+  };
+
+  handleChangeAgree = event => {
+    const { name, checked } = event.target;
+    this.setState({ [name]: checked });
+    // additional logic;
   };
 
   render() {
@@ -89,16 +119,13 @@ class ControlledForm extends Component {
           })}
         </div>
         <div>
-          <select value={city} name="city" onChange={this.handleChangeValue}>
-            {Object.keys(CITY_OPTIONS).map(key => {
-              const value = CITY_OPTIONS[key];
-              return (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              );
-            })}
-          </select>
+          <CitySelect
+            defaultCity={CITY_OPTIONS.Kyiv}
+            onSelect={city => this.setState({ city })}
+          />
+        </div>
+        <div>
+          {city !== CITY_OPTIONS.Lviv && <ControlledCitySelect city={city} />}
         </div>
         <Button disabled={!canSubmit} type="submit">
           Log in
