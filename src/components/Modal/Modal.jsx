@@ -6,18 +6,24 @@ const modalElement = document.getElementById('modal');
 class Modal extends Component {
   static defaultProps = {
     onClose: () => {},
+    keyMap: {},
   };
   componentDidMount() {
-    document.body.addEventListener('keydown', this.handleEscape);
+    document.body.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener('keydown', this.handleEscape);
+    document.body.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleEscape = event => {
+  handleKeyDown = event => {
     if (event.code === 'Escape') {
       this.props.onClose();
+      return;
+    }
+    if (Object.hasOwn(this.props.keyMap, event.code)) {
+      const func = this.props.keyMap[event.code];
+      func();
     }
   };
 
