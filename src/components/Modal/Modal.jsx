@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
 import css from './Modal.module.css';
 
+const modalElement = document.getElementById('modal');
 class Modal extends Component {
   static defaultProps = {
     onClose: () => {},
@@ -26,10 +28,11 @@ class Modal extends Component {
   };
 
   render() {
-    return (
+    return createPortal(
       <div className={css.overlay} onClick={this.handleClose}>
         <div className={css.content}>{this.props.children}</div>
-      </div>
+      </div>,
+      modalElement
     );
   }
 }
