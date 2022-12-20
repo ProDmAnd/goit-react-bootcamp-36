@@ -1,0 +1,48 @@
+.todos_container {
+  width: 95vw;
+  height: 95vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.todo_item {
+  width: 300px;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px #3333;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo_item p {
+  margin-top: 0px;
+  padding-top: 4px;
+}
+
+.todo_done_label {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.todo_done_label input {
+  margin-right: 8px;
+}
+
+.todo_buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input_message_area {
+  max-width: 100%;
+  margin-bottom: 16px;
+}
+
+.add_todo_button {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+}
