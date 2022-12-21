@@ -7,8 +7,10 @@ import ControlledCitySelect from 'components/ControlledCitySelect/ControlledCity
 import CityFinder from 'components/CityFinder/CityFinder';
 import WarehouseFinder from 'components/WarehouseFinder/WarehouseFinder';
 import WarehouseTypeSelect from 'components/WarehouseTypeSelect/WarehouseTypeSelect';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-class ControlledForm extends Component {
+class ControlledForm1 extends Component {
   emailField = 'email';
   agreeField = 'agree';
   state = {
@@ -37,10 +39,14 @@ class ControlledForm extends Component {
 
   componentDidMount() {
     console.log('Form Component did mount');
+    console.log(this.state.email);
   }
 
   componentDidUpdate(prevProps, prevState) {
     console.log('Form componentDidUpdate');
+    if (prevState.email !== this.state.email) {
+      console.log(this.state.email);
+    }
   }
 
   handleSubmit = event => {
@@ -159,6 +165,110 @@ class ControlledForm extends Component {
     );
   }
 }
+
+const ControlledForm = ({ withCheckbox }) => {
+  const emailId = 'email';
+  // in Class Component: const [this.state.value, this.setState({ value })]
+  // const [emailError, setEmailError] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [checked, setChecked] = useState(false);
+
+  // componentDidMout()
+  useEffect(valueInUseEffect => {
+    // console.log('valueInUseEffect', valueInUseEffect);
+    console.log('componentDidMout work', new Date().toISOString());
+
+    return valueInUnmount => {
+      console.log('unmount', valueInUnmount);
+    };
+  }, []);
+
+  useEffect(() => {
+    // if (email.includes('@')) {
+    //   setEmailError('');
+    //   return;
+    // }
+    // setEmailError('Email is invalid');
+    /*
+      componentDidMount() {
+        console.log(this.state.email);
+      }
+      componentDidUpdate(prevProps, prevState) {
+        if (prevState.email !== this.state.email) {
+          console.log(this.state.email);
+        }
+      }
+    */
+    console.log('useEffect email', email, /\w*[@]\w*/.test(email));
+  }, [email]);
+
+  useEffect(() => {
+    /*
+      componentDidMount() {
+        console.log(this.state.passwrod);
+      }
+      componentDidUpdate(prevProps, prevState) {
+        if (prevState.password !== this.state.password) {
+          console.log(this.state.password);
+        }
+      }
+     */
+    // console.log('useEffect password', password);
+    return () => {
+      console.log('unmount in password useEffect');
+    };
+  }, [password]);
+
+  const submit = ({ target: { elements } }) => {
+    // a lot of logic....
+  };
+
+  const errorEmail = email.includes('@') ? '' : 'Email is invalid';
+  const passwordError = password.length < 6 ? 'Password is too short' : '';
+  return (
+    <form className={css.form} onSubmit={submit}>
+      <div className={css.field}>
+        <label htmlFor={emailId}>Email</label>
+        <input
+          id={emailId}
+          name="email"
+          placeholder="Enter your email"
+          type="email"
+          value={email}
+          onChange={({ target: { value } }) => setEmail(value)}
+        />
+        <p>{errorEmail}</p>
+      </div>
+      <div className={css.field}>
+        <label>Password</label>
+        <input
+          name="password"
+          placeholder="Enter your password"
+          type="password"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+        />
+        <p>{passwordError}</p>
+      </div>
+
+      {withCheckbox && (
+        <div className={css.field}>
+          <label>
+            <input
+              type="checkbox"
+              checked={checked}
+              name="agree"
+              onChange={setChecked}
+              style={{ marginRight: 6 }}
+            />
+            I agree with Terms & Conditions
+          </label>
+        </div>
+      )}
+    </form>
+  );
+};
 
 export default ControlledForm;
 
