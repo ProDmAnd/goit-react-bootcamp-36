@@ -3,10 +3,13 @@ import Modal from 'components/Modal/Modal';
 import NewsList from 'components/NewsList/NewsList';
 import { lsQueryConfigKey } from 'constants/api';
 import useModal from 'hooks/useModal';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Component, useState } from 'react';
 import { fetchArticles, getArticles } from 'services/HNewsAPI';
 import { useMedia, useAsyncFn } from 'react-use';
+import { object } from 'prop-types';
+import { forwardRef } from 'react';
+import useMount from 'hooks/useMount';
 
 class NewsClass extends Component {
   state = {
@@ -124,14 +127,22 @@ const News = ({ minWidth = 450 }) => {
   // const [articles, setArticles] = useState([]);
   // const [loading, setLoading] = useState(false);
   // const [errorMessage, setErrorMessage] = useState('');
+  const mount = useMount();
   const [query, setQuery] = useState('');
   const [hitsPerPage, setHitsPerPage] = useState('10');
   const [queryModalOpen, showQueryModal, closeQueryModal] = useModal();
-  const isLow = useMedia(`(max-width: ${minWidth}px`);
   const [
-    { value: articles, loading, error: { message } = { message: '' } },
+    { value: articles = [], loading, error: { message } = { message: '' } },
     getArticles,
   ] = useAsyncFn(async queryConfig => await fetchArticles(queryConfig), []);
+
+  const sortedArticles = useMemo(() => {
+    const articlesCopy = [...articles];
+    return articlesCopy.sort((a, b) => a.num_comments - b.num_comments);
+  }, [articles]);
+
+  const inputRef = useRef();
+  const divRef = useRef();
   // console.log('IS LOW?', isLow);
 
   // const getArticles = async queryConfig => {
@@ -146,6 +157,11 @@ const News = ({ minWidth = 450 }) => {
   //     setLoading(false);
   //   }
   // };
+
+  useEffect(() => {
+    if (!mount) return;
+    console.log('changeQuery', query);
+  }, [query, mount]);
 
   useEffect(() => {
     const queryConfig =
@@ -163,7 +179,8 @@ const News = ({ minWidth = 450 }) => {
     //     setLoading(false);
     //   }
     // })();
-    getArticles(queryConfig);
+    // getArticles(queryConfig);
+    console.log('componentDidMount');
     setQuery(queryConfig?.query);
     setHitsPerPage(queryConfig?.hitsPerPage);
   }, [getArticles]);
@@ -174,16 +191,23 @@ const News = ({ minWidth = 450 }) => {
     }
   };
 
+  useEffect(() => {
+    if (!queryModalOpen) return;
+
+    inputRef.current.focus();
+  }, [queryModalOpen]);
+
   return (
     <>
       {queryModalOpen && (
         <Modal onClose={closeQueryModal}>
           <div>
             <input
+              ref={inputRef}
               name="query"
               value={query}
               onChange={({ target: { value } }) => setQuery(value)}
-              onKeyDown={onKeyDown}
+              // onKeyDown={onKeyDown}
             />
             <select
               name="hitsPerPage"
@@ -204,9 +228,12 @@ const News = ({ minWidth = 450 }) => {
       )}
       {/* <ControlledForm city={this.state} /> */}
       <Button onClick={showQueryModal}>Open Search</Button>
+      <div ref={divRef}></div>
       {loading && <h3>Loading...</h3>}
       {message && <p>{message}</p>}
-      {articles?.length && !loading ? <NewsList articles={articles} /> : null}
+      {articles?.length && !loading ? (
+        <NewsList articles={sortedArticles} />
+      ) : null}
     </>
   );
 };
