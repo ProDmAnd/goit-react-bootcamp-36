@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  --circle-size: 24px;
+  --padding: 2px;
+  --border-width: 2px;
+  --circle-transform: 20px;
+}
+
+.themeName {
+  margin-right: 8px;
+  font-size: 18px;
+  color: white;
+  transition: color 300ms;
+}
+
+.themeNameLight {
+  color: black;
+}
+
+.button {
+  border: var(--border-width) solid white;
+  width: calc(
+    var(--border-width) * 2 + var(--circle-size) + var(--circle-transform) +
+      var(--padding) * 2
+  );
+  border-radius: calc(
+    var(--border-width) + var(--padding) + var(--circle-size)
+  );
+  padding: var(--padding);
+  transition: border-color 300ms;
+  background-color: initial;
+}
+
+.buttonLight {
+  border-color: black;
+}
+
+.switch {
+  display: block;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  background-color: #fff;
+  border-radius: 100%;
+  transition: transform 300ms, background-color 300ms;
+}
+
+.switchLight {
+  transform: translateX(var(--circle-transform));
+  background-color: #000;
+}

@@ -1,7 +1,17 @@
-const NewsList = ({ articles = [] }) => {
+import { memo } from 'react';
+
+// MEMOIZED NEWS LIST
+const NewsList = ({ articles = [], sort: { asc, desc } }) => {
+  let articlesCopy = [...articles];
+  if (asc || desc) {
+    articlesCopy.sort((a, b) =>
+      asc ? a.num_comments - b.num_comments : b.num_comments - a.num_comments
+    );
+  }
+  console.log('rerender', asc, desc);
   return (
     <ul>
-      {articles.map(({ objectID, url, title }) => (
+      {articlesCopy.map(({ objectID, url, title }) => (
         <li key={objectID}>
           <a href={url} target="_blank" rel="noreferrer noopener">
             {title}
@@ -12,4 +22,14 @@ const NewsList = ({ articles = [] }) => {
   );
 };
 
-export default NewsList;
+export default memo(NewsList, (prev, next) => {
+  if (
+    Object.is(prev.articles, next.articles) &&
+    prev.sort.asc === next.sort.asc &&
+    prev.sort.desc === next.sort.desc
+  ) {
+    // RETURN TRUE IF PROPS ARE EQUAL
+    return true;
+  }
+  return false;
+});

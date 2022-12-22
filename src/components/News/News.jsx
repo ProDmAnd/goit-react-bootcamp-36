@@ -10,6 +10,9 @@ import { useMedia, useAsyncFn } from 'react-use';
 import { object } from 'prop-types';
 import { forwardRef } from 'react';
 import useMount from 'hooks/useMount';
+import { useCallback } from 'react';
+import useQuery from 'hooks/useQuery';
+import { useUserAuthContext } from 'contexts/UserAuthProvider';
 
 class NewsClass extends Component {
   state = {
@@ -126,26 +129,29 @@ class NewsClass extends Component {
 const News = ({ minWidth = 450 }) => {
   // const [articles, setArticles] = useState([]);
   // const [loading, setLoading] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState('');
+  const [message, setErrorMessage] = useState('');
+
   const mount = useMount();
   const [query, setQuery] = useState('');
   const [hitsPerPage, setHitsPerPage] = useState('10');
   const [queryModalOpen, showQueryModal, closeQueryModal] = useModal();
-  const [
-    { value: articles = [], loading, error: { message } = { message: '' } },
-    getArticles,
-  ] = useAsyncFn(async queryConfig => await fetchArticles(queryConfig), []);
+  const [articles, getArticles, loading, errorMessage] = useQuery(
+    [],
+    fetchArticles
+  );
 
-  const sortedArticles = useMemo(() => {
-    const articlesCopy = [...articles];
-    return articlesCopy.sort((a, b) => a.num_comments - b.num_comments);
-  }, [articles]);
+  const [asc, setAsc] = useState(true);
+  const [desc, setDesc] = useState(false);
+  // const [
+  //   { value: articles = [], loading, error: { message } = { message: '' } },
+  //   getArticles,
+  // ] = useAsyncFn(async queryConfig => await fetchArticles(queryConfig), []);
 
   const inputRef = useRef();
   const divRef = useRef();
   // console.log('IS LOW?', isLow);
 
-  // const getArticles = async queryConfig => {
+  // const getArticles = useCallback(async queryConfig => {
   //   try {
   //     setLoading(true);
   //     setErrorMessage('');
@@ -156,7 +162,12 @@ const News = ({ minWidth = 450 }) => {
   //   } finally {
   //     setLoading(false);
   //   }
-  // };
+  // }, []);
+
+  const sortedArticles = useMemo(() => {
+    const articlesCopy = [...articles];
+    return articlesCopy.sort((a, b) => a.num_comments - b.num_comments);
+  }, [articles]);
 
   useEffect(() => {
     if (!mount) return;
@@ -167,19 +178,7 @@ const News = ({ minWidth = 450 }) => {
     const queryConfig =
       JSON.parse(localStorage.getItem(lsQueryConfigKey)) ?? {};
 
-    // (async queryConfig => {
-    //   try {
-    //     setLoading(true);
-    //     setErrorMessage('');
-    //     const articles = await fetchArticles(queryConfig);
-    //     setArticles(articles);
-    //   } catch (error) {
-    //     setErrorMessage(error.message);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // })();
-    // getArticles(queryConfig);
+    getArticles(queryConfig);
     console.log('componentDidMount');
     setQuery(queryConfig?.query);
     setHitsPerPage(queryConfig?.hitsPerPage);
@@ -227,12 +226,38 @@ const News = ({ minWidth = 450 }) => {
         </Modal>
       )}
       {/* <ControlledForm city={this.state} /> */}
-      <Button onClick={showQueryModal}>Open Search</Button>
+      <div>
+        <Button onClick={showQueryModal}>Open Search</Button>
+        <Button
+          onClick={() => {
+            setDesc(false);
+            setAsc(true);
+          }}
+          disabled={asc}
+        >
+          Sort by Asc
+        </Button>
+        <Button
+          onClick={() => {
+            setDesc(true);
+            setAsc(false);
+          }}
+          disabled={desc}
+        >
+          Sort by Desc
+        </Button>
+        <Button
+          onClick={() => setErrorMessage(prev => (prev ? '' : 'Some message'))}
+        >
+          Set State
+        </Button>
+      </div>
       <div ref={divRef}></div>
       {loading && <h3>Loading...</h3>}
-      {message && <p>{message}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
+      <p>{message}</p>
       {articles?.length && !loading ? (
-        <NewsList articles={sortedArticles} />
+        <NewsList articles={articles} sort={{ asc, desc }} />
       ) : null}
     </>
   );

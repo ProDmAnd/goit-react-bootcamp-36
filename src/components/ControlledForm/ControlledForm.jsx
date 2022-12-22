@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component, PureComponent, useReducer } from 'react';
 import css from './ControlledFrom.module.css';
 import Button from 'components/Button/Button';
 import { CITY_OPTIONS, GENDER_OPTIONS } from 'constants/loginForm';

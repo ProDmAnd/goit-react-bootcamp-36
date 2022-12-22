@@ -1,0 +1,34 @@
+.container {
+  background-color: rgb(80, 80, 209);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.container h2 {
+  margin: 0;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  color: initial;
+}
+
+.navList li {
+  list-style-type: none;
+  padding: 10px;
+  color: #fff;
+}
+
+.navList li:hover {
+  color: grey;
+}
+
+.navList a {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-line: none;
+}

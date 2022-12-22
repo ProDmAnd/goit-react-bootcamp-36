@@ -1,13 +1,20 @@
+import { useTheme } from '@mui/system';
 import { Wrapper } from 'components';
-import ControlledForm from 'components/ControlledForm/ControlledForm';
+import Header from 'components/Header/Header';
 import News from 'components/News/News';
-import { useEffect, useState } from 'react';
+import AppThemeProvider from 'contexts/AppThemeProvider';
+import UserAuthProvider from 'contexts/UserAuthProvider';
 
 export const App = () => {
   return (
-    <Wrapper>
-      {/* <ControlledForm /> */}
-      <News minWidth={700} />
-    </Wrapper>
+    <UserAuthProvider>
+      <AppThemeProvider>
+        <Header />
+        <Wrapper>
+          {/* <ControlledForm /> */}
+          <News minWidth={700} />
+        </Wrapper>
+      </AppThemeProvider>
+    </UserAuthProvider>
   );
 };
