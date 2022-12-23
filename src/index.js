@@ -25,3 +25,33 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+const filter = (targetArray = [], callback) => {
+  const arrayCopy = [];
+  for (let index = 0; index < targetArray.length; index++) {
+    const element = targetArray[index];
+    if (element > callback()) {
+      arrayCopy.push(element);
+    }
+  }
+
+  return arrayCopy;
+};
+
+const initialArray = [1, 23, 4, 56, 67, 8, 8, 42, 123, 22, 2, 2, 1, 3, 45];
+
+// const filterCallback = num => () => num;
+
+function filterCallback(num) {
+  alert('CALL FUNCTION WHICH RETURN FUNCTION ' + num);
+  return function () {
+    console.log('call callback', num);
+    return num;
+  };
+}
+console.log('initial open');
+const biggerThanTwenty = filterCallback(20);
+console.log('second call');
+const biggerThanFive = filterCallback(5);
+console.log(filter(initialArray, biggerThanFive));
+console.log(filter(initialArray, biggerThanTwenty));
