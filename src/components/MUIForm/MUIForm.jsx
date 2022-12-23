@@ -17,6 +17,7 @@ import {
 import { CITY_OPTIONS, GENDER_OPTIONS } from 'constants/loginForm';
 import React, { Component } from 'react';
 import requestImitator from 'utils/requestImitator';
+import { array } from 'yup/lib/locale';
 import css from './MUIForm.module.css';
 
 const Box = styled.div`
@@ -50,6 +51,12 @@ class MUIForm extends Component {
     console.log('component did update', prevProps, this.props);
   }
 
+  handleChangeFabric = key => event => {
+    const { name } = event.target;
+    const value = event.target[key];
+    this.setState({ [name]: value });
+  };
+
   handleChangeValue = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -71,6 +78,11 @@ class MUIForm extends Component {
     const { email, password, agree, gender, city } = this.state;
     const canSubmit =
       email && password.length > 5 && agree && gender !== GENDER_OPTIONS.skip;
+
+    const callbackMap = value => value * 2;
+    function arrayPow(pow, array = [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      return array.map(value => Math.pow(value, pow));
+    }
 
     return (
       <Paper style={{ padding: '1rem' }}>
@@ -94,7 +106,11 @@ class MUIForm extends Component {
             placeholder="Enter your email"
             helperText="Min 6 characters"
             value={password}
-            onChange={this.handleChangeValue}
+            // onChange={this.handleChangeFabric('value') || event => {
+            //   const { name } = event.target;
+            //   const value = event.target['value'];
+            //   this.setState({ [name]: value });
+            // }; }
             InputLabelProps={{ shrink: true }}
           />
           <FormControlLabel
@@ -102,7 +118,7 @@ class MUIForm extends Component {
             label="I agree with Terms & Conditions"
             name="agree"
             checked={agree}
-            onChange={this.handleChangeChecked}
+            onChange={this.handleChange('checked')}
           />
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>

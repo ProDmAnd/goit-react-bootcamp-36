@@ -23,8 +23,8 @@ export class App extends Component {
         {/* <Counter /> */}
         {/* <Counter initialValue={10} increment={10} /> */}
         {/* <UncontrolledForm /> */}
-        <ControlledForm city={this.state} />
-        {/* <MUIForm email="mail@mail.com" /> */}
+        {/* <ControlledForm city={this.state} /> */}
+        <MUIForm email="mail@mail.com" />
         {/* <MUIFormWithFormik /> */}
       </Wrapper>
     );
