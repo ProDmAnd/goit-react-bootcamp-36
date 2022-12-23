@@ -9,6 +9,7 @@ import WarehouseFinder from 'components/WarehouseFinder/WarehouseFinder';
 import WarehouseTypeSelect from 'components/WarehouseTypeSelect/WarehouseTypeSelect';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { getClearPhone, getFormattedPhone } from 'utils/phoneFormatter';
 
 class ControlledForm1 extends Component {
   emailField = 'email';
@@ -173,6 +174,7 @@ const ControlledForm = ({ withCheckbox }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checked, setChecked] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   // componentDidMout()
   useEffect(valueInUseEffect => {
@@ -251,7 +253,20 @@ const ControlledForm = ({ withCheckbox }) => {
         />
         <p>{passwordError}</p>
       </div>
-
+      <div className={css.field}>
+        <label>
+          <input
+            type="text"
+            value={getFormattedPhone(phoneNumber)}
+            name="phoneNumber"
+            onChange={event =>
+              setPhoneNumber(getClearPhone(event.target.value))
+            }
+            style={{ marginRight: 6 }}
+          />
+          Phone number
+        </label>
+      </div>
       {withCheckbox && (
         <div className={css.field}>
           <label>

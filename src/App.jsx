@@ -1,5 +1,5 @@
-import { useTheme } from '@mui/system';
 import { Wrapper } from 'components';
+import ControlledForm from 'components/ControlledForm/ControlledForm';
 import Header from 'components/Header/Header';
 import News from 'components/News/News';
 import AppThemeProvider from 'contexts/AppThemeProvider';
@@ -11,8 +11,8 @@ export const App = () => {
       <AppThemeProvider>
         <Header />
         <Wrapper>
-          {/* <ControlledForm /> */}
           <News minWidth={700} />
+          <ControlledForm />
         </Wrapper>
       </AppThemeProvider>
     </UserAuthProvider>

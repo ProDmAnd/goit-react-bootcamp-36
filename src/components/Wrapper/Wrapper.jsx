@@ -1,4 +1,3 @@
-
 import { useThemeContext } from 'contexts/AppThemeProvider';
 import css from './Wrapper.module.css';
 
