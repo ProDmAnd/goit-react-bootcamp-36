@@ -1,7 +1,7 @@
 import css from './Button.module.css';
 import PropTypes from 'prop-types';
 
-const Button = ({ success, error, ...restProps }) => {
+const Button = ({ success = false, error = false, ...restProps }) => {
   const className = success ? css.green : error ? css.red : css.button;
   return (
     <button

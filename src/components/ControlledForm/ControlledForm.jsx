@@ -50,6 +50,7 @@ class ControlledForm1 extends Component {
     }
   }
 
+  /** @param {React.FormEvent<HTMLFormElement>} event */
   handleSubmit = event => {
     event.preventDefault();
     console.log(this.state);

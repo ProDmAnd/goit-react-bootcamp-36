@@ -199,7 +199,7 @@ const News = ({ minWidth = 450 }) => {
   return (
     <>
       {queryModalOpen && (
-        <Modal onClose={closeQueryModal}>
+        <Modal onClose={closeQueryModal} keyMap={{ KeyD: () => {} }}>
           <div>
             <input
               ref={inputRef}

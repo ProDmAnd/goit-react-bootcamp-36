@@ -45,6 +45,7 @@ class ModalClass extends Component {
   }
 }
 
+/** @type {React.FC<{onClose: () => void, keyMap?: Record<string, () => void>}>} */
 const Modal = ({ onClose = () => {}, keyMap = {}, children }) => {
   const handleClose = event => {
     if (event.target === event.currentTarget) {
@@ -68,7 +69,7 @@ const Modal = ({ onClose = () => {}, keyMap = {}, children }) => {
     return () => {
       document.body.removeEventListener('keydown', handleKeyDown);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return createPortal(
