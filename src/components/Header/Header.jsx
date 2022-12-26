@@ -1,37 +1,44 @@
-import Button from 'components/Button/Button';
+import { Button } from '@mui/material';
 import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
 import { useUserAuthContext } from 'contexts/UserAuthProvider';
+import { Link, NavLink } from 'react-router-dom';
 import css from './Header.module.css';
 
-const pages = ['Home', 'About', 'Contacts'];
+const pages = [
+  { to: '/', title: 'Home' },
+  { to: 'about', title: 'About' },
+  { to: 'news', title: 'News' },
+];
 
 const Header = () => {
   const { isAuth, login, logout } = useUserAuthContext();
 
   return (
     <div className={css.container}>
-      <h2>Context</h2>
+      <h2>Routing</h2>
       <nav>
         <ul className={css.navList}>
-          {pages.map(page => (
-            <li key={page}>
-              <a href={`/${page}`}>{page}</a>
+          {pages.map(({ to, title }) => (
+            <li key={to}>
+              <NavLink to={to}>{title}</NavLink>
             </li>
           ))}
           {isAuth && (
             <li>
-              <a href="/Profile">Profile</a>
+              <NavLink to="profile">Profile</NavLink>
             </li>
           )}
         </ul>
       </nav>
-      <Button onClick={login} success>
-        Login
-      </Button>
-      <Button onClick={logout} error>
-        Logout
-      </Button>
-      <ThemeSwitcher />
+      <div className={css.buttonGroup}>
+        <Button variant="contained" onClick={login}>
+          Sign In
+        </Button>
+        <Button variant="contained" onClick={logout}>
+          Sign Out
+        </Button>
+        <ThemeSwitcher />
+      </div>
     </div>
   );
 };

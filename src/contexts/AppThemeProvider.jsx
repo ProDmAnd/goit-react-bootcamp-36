@@ -5,7 +5,7 @@ export const ThemeContext = createContext();
 export const useThemeContext = () => useContext(ThemeContext);
 
 const AppThemeProvider = ({ children }) => {
-  const [themeLight, setThemeLight] = useState(false);
+  const [themeLight, setThemeLight] = useState(true);
 
   const toggleTheme = () => setThemeLight(prev => !prev);
 

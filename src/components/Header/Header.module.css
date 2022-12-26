@@ -1,5 +1,5 @@
 .container {
-  background-color: rgb(80, 80, 209);
+  background-color: rgb(140, 140, 178);
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   color: initial;
+  margin: 0;
 }
 
 .navList li {
@@ -23,12 +24,22 @@
   color: #fff;
 }
 
+.navList a:active {
+  color: rgb(69, 0, 181);
+}
+
 .navList li:hover {
   color: grey;
 }
 
 .navList a {
-  color: inherit;
-  text-decoration: none;
-  text-decoration-line: none;
+  /* text-decoration: none; */
+  /* text-decoration-line: none; */
+  text-transform: capitalize;
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
