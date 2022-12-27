@@ -1,36 +1,64 @@
-import { Card, CardActions, CardContent, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  TextField,
+  Typography,
+} from '@mui/material';
 import clsx from 'clsx';
-import { Button } from 'components';
-import { lsQueryConfigKey } from 'constants/api';
 import useQuery from 'hooks/useQuery';
-import React, { useEffect, useMemo, useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { fetchArticles } from 'services/HNewsAPI';
 import css from './NewsList.module.css';
 
 const NewsList = () => {
-  // const [query, setQuery] = useState('');
-  const [hitsPerPage, setHitsPerPage] = useState('10');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // const [hitsPerPage, setHitsPerPage] = useState('10');
   const [articles, getArticles, loading, errorMessage] = useQuery(
     [],
     fetchArticles
   );
-  const { query } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams({
+    query: '',
+    hitsPerPage: 10,
+    sort: 'asc',
+  });
 
-  const [asc, setAsc] = useState(true);
+  // const [query, setQuery] = useState(searchParams.get('query'));
+  // const [sort, setSort] = useState(searchParams.get('sort'));
+  const params = useMemo(
+    () =>
+      Object.fromEntries(
+        [...searchParams].map(item => {
+          if (!Number.isNaN(parseFloat(item[1]))) {
+            return [item[0], parseFloat(item[1])];
+          }
+          return item;
+        })
+      ),
+    [searchParams]
+  );
 
   useEffect(() => {
-    const queryConfig =
-      JSON.parse(localStorage.getItem(lsQueryConfigKey)) ?? {};
-
-    getArticles({ query, hitsPerPage });
-    // setQuery(queryConfig?.query);
-    setHitsPerPage(queryConfig?.hitsPerPage);
-  }, [getArticles, query, hitsPerPage]);
+    const queryParams = { ...params };
+    delete queryParams.sort;
+    getArticles(queryParams);
+  }, [getArticles, params]);
 
   const News = useMemo(() => {
     const sortedArticles = [...articles].sort((a, b) =>
-      asc ? a.num_comments - b.num_comments : b.num_comments - a.num_comments
+      params?.sort === 'asc'
+        ? a.num_comments - b.num_comments
+        : b.num_comments - a.num_comments
     );
     return (
       <div className={css.newsContainer}>
@@ -40,21 +68,48 @@ const NewsList = () => {
               <Typography variant="h6">{title || story_title}</Typography>
             </CardContent>
             <CardActions>
-              <Link to={`${objectID}/${Math.random()}`}>Open</Link>
+              <Button
+                variant="contained"
+                onClick={() =>
+                  navigate(objectID, { state: { from: location } })
+                }
+              >
+                Open
+              </Button>
             </CardActions>
           </Card>
         ))}
       </div>
     );
-  }, [articles, asc]);
+  }, [articles, params, navigate, location]);
 
   return (
     <>
+      <TextField
+        name="query"
+        value={params?.query}
+        onChange={({ target: { name, value } }) => {
+          // setQuery(value);
+          setSearchParams({ ...params, [name]: value });
+        }}
+      />
       <div className={clsx(css.flexContainer, css.buttons)}>
-        <Button onClick={() => setAsc(true)} disabled={asc}>
+        <Button
+          onClick={() => {
+            // setSort('asc');
+            setSearchParams({ ...params, sort: 'asc' });
+          }}
+          disabled={params?.sort === 'asc'}
+        >
           Sort by Asc
         </Button>
-        <Button onClick={() => setAsc(false)} disabled={!asc}>
+        <Button
+          onClick={() => {
+            // setSort('desc');
+            setSearchParams({ ...params, sort: 'desc' });
+          }}
+          disabled={params?.sort === 'desc'}
+        >
           Sort by Desc
         </Button>
       </div>

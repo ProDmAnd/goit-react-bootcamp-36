@@ -1,7 +1,7 @@
-const About = () => {
+const About = ({title = "About"}) => {
   return (
     <div>
-      <h3>About</h3>
+      <h3>{title}</h3>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam omnis
         modi natus. Sit pariatur praesentium ipsa enim reprehenderit sunt.

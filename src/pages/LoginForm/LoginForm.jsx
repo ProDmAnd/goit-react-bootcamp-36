@@ -14,11 +14,14 @@ import {
 } from '@mui/material';
 
 import { CITY_OPTIONS, GENDER_OPTIONS } from 'constants/loginForm';
+import { useUserAuthContext } from 'contexts/UserAuthProvider';
 import { Form, Formik } from 'formik';
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loginValidationScheme } from './loginValidation';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const { login } = useUserAuthContext();
   const textFields = [
     {
       key: 'email',
@@ -45,7 +48,8 @@ const LoginForm = () => {
         }}
         validationSchema={loginValidationScheme}
         onSubmit={values => {
-          console.log(values);
+          login();
+          navigate('/profile');
         }}
       >
         {props => (

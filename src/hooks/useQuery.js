@@ -1,5 +1,11 @@
 import { useCallback, useState } from 'react';
 
+/**
+ * @param {any} defaultState
+ * @param {() => Promise<defaultState>} asyncCallback
+ * @param {boolean} defaultLoading
+ * @returns {[defaultState, () => Promise<void>, boolean, string]}
+ */
 const useQuery = (
   defaultState,
   asyncCallback = () => {},
