@@ -3,4 +3,6 @@
   font-size: 40;
   padding: 1rem;
   color: #010101;
+  max-width: 1120px;
+  margin: 0 auto;
 }

@@ -8,7 +8,7 @@ const pages = [
   { to: '/', title: 'Home' },
   { to: 'about', title: 'About' },
   { to: 'news', title: 'News' },
-  { to: 'songs', title: 'Songs' },
+  { to: 'products', title: 'Products' },
 ];
 
 const Header = () => {
