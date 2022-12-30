@@ -1,15 +1,31 @@
 import axios from 'axios';
 
-const shazamApi = axios.create({
-  baseURL: 'http://makeup-api.herokuapp.com/api/v1/products.json',
+const makeupApi = axios.create({
+  baseURL: 'http://makeup-api.herokuapp.com/api/v1/products',
 });
 
-/** @param {MakeupQueryParams} params */
+/**
+ *
+ * @param {MakeupQueryParams} params
+ * @returns {MakeupResponse[]}
+ */
 export const searchMakeupProducts = async (params = {}) => {
-  const response = await shazamApi.get('', { params });
+  const response = await makeupApi.get('.json', { params });
 
   return response.data;
 };
+
+/**
+ *
+ * @param {number|string} id
+ * @returns {MakeupResponse}
+ */
+export const getProduct = async (id = 0) => {
+  const response = await makeupApi.get(`/${id}.json`);
+  return response.data;
+};
+
+
 
 /**
  * @typedef {Object} MakeupQueryParams

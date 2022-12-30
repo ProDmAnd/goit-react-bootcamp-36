@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import NewsItem from 'pages/NewsItem/NewsItem';
 import NewsAuthor from 'pages/NewsAuthor/NewsAuthor';
 import NewsList from 'pages/NewsList/NewsList';
@@ -7,6 +7,7 @@ import NewsLayout from 'components/NewsLayout';
 import Products from 'pages/Products/Products';
 import Profile from 'pages/Profile/Profile';
 import { lazy } from 'react';
+import ProductDetails from 'pages/ProductDetails/ProductDetails';
 
 const LazyAbout = lazy(() =>
   import(/* webpackChunkName: "about" */ 'pages/About/About')
@@ -34,7 +35,10 @@ export const ProductsApp = () => {
           </Route>
         </Route>
         <Route path="about" element={<LazyAbout title="Not About" />} />
-        <Route path="products" element={<Products />} />
+        <Route path="products" element={<Outlet />}>
+          <Route index element={<Products />} />
+          <Route path=":id" element={<ProductDetails />} />
+        </Route>
         <Route path="profile" element={<Profile />} />
         <Route path="*" element={<LazyNotFound />} />
       </Route>
