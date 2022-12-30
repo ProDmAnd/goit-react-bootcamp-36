@@ -19,7 +19,6 @@ const tasksReducer = (state = initialState, { type, payload }) => {
     case removeTaskActionType:
       return state.filter(({ id }) => id !== payload);
     case toggleTaskActionType:
-     
       return state.map(task =>
         task.id === payload ? { ...task, completed: !task.completed } : task
       );

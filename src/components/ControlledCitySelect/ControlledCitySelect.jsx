@@ -8,17 +8,25 @@ const KiyvPosts = ['№5 вул .ююю', '№6 вул жжжж'];
 class ControlledCitySelect extends PureComponent {
   state = {
     selectedPostId: 0,
-    cities: [],
+    cities: KiyvPosts,
+    city: CITY_OPTIONS.Dnipro,
   };
   intervalId;
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.city !== state.city) {
+      return { cities: [] };
+    }
+    return null;
+  }
+
   componentDidMount() {
-    document.body.addEventListener('keydown', this.handleKeyDown);
-    this.intervalId = setInterval(
-      () =>
-        this.setState(prev => ({ selectedPostId: prev.selectedPostId + 1 })),
-      3000
-    );
+    // document.body.addEventListener('keydown', this.handleKeyDown);
+    // this.intervalId = setInterval(
+    //   () =>
+    //     this.setState(prev => ({ selectedPostId: prev.selectedPostId + 1 })),
+    //   3000
+    // );
   }
   componentDidUpdate(prevProps, prevState) {
     // console.log(
@@ -31,8 +39,8 @@ class ControlledCitySelect extends PureComponent {
     }
   }
   componentWillUnmount() {
-    document.body.removeEventListener('keydown', this.handleKeyDown);
-    clearInterval(this.intervalId);
+    // document.body.removeEventListener('keydown', this.handleKeyDown);
+    // clearInterval(this.intervalId);
   }
 
   handleKeyDown = event => {

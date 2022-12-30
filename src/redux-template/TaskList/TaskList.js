@@ -25,12 +25,19 @@ export const TaskList = () => {
   const deleteTask = id => dispatch(deleteTaskById(id));
 
   return (
-    <ul className={css.list}>
-      {filteredTasks.map(task => (
-        <li className={css.listItem} key={task.id}>
-          <Task task={task} toggleTask={toggleTask} deleteTask={deleteTask} />
-        </li>
-      ))}
-    </ul>
+    <div
+      onKeyDown={e => {
+        e.stopPropagation();
+        console.log('list keydown evnet', e.code);
+      }}
+    >
+      <ul className={css.list}>
+        {filteredTasks.map(task => (
+          <li className={css.listItem} key={task.id}>
+            <Task task={task} toggleTask={toggleTask} deleteTask={deleteTask} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
