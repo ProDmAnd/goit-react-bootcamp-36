@@ -1,7 +1,8 @@
 import { filterStatus } from 'constants/filtres';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'redux-template/Button/Button';
-import { filterTasksByStatus } from 'redux/filters/actions';
+import { changeStatus } from 'redux/filters/actions';
+import { filtersActions } from 'redux/filters/slice';
 import css from './StatusFilter.module.css';
 
 export const StatusFilter = () => {
@@ -9,7 +10,7 @@ export const StatusFilter = () => {
   const status = useSelector(state => state.filters.status);
 
   const selectStatus = currentStatus => () => {
-    dispatch(filterTasksByStatus(currentStatus));
+    dispatch(filtersActions.changeStatus(currentStatus));
   };
   return (
     <div className={css.wrapper}>

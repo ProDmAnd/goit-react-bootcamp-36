@@ -5,11 +5,12 @@ import { CITY_OPTIONS } from 'constants/loginForm';
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { AppBar } from 'redux-template/AppBar/AppBar';
 import { Layout } from 'redux-template/Layout/Layout';
 import { TaskForm } from 'redux-template/TaskForm/TaskForm';
 import { TaskList } from 'redux-template/TaskList/TaskList';
-import { store } from 'redux/store';
+import { persistor, store } from 'redux/store';
 
 const ValidSyntax = () => {
   return [<div key={1}>Div 1</div>, 'asdasd', <span key={2}>span 1</span>];
@@ -21,13 +22,13 @@ export const App = () => {
   const divRef = useRef();
 
   useEffect(() => {
-    console.log('componentDidMount', divRef.current.focus);
+    console.log('componentDidMount', divRef.current?.focus);
     // const interval = setInterval(
     //   () => console.log('Interval', new Date().toISOString()),
     //   1000
     // );
     return () => {
-      console.log('componentWillUnmount');
+      // console.log('componentWillUnmount');
       // clearInterval(interval);
     };
   }, []);
@@ -53,26 +54,28 @@ export const App = () => {
 
   return (
     <Provider store={store}>
-      <Layout>
-        <ControlledCitySelect city={city} />
-        <ValidSyntax />
-        <AppBar />
-        <ErrorBoundary>
-          <TaskForm />
-        </ErrorBoundary>
-        <TaskList />
-      </Layout>
-      <Button onClick={() => setCity(CITY_OPTIONS.Lviv)}>Change City</Button>
-      <div ref={divRef}>Counter Value: {counter}</div>
-      <Button
-        onClick={() => {
-          setCounter(prev => prev + 1);
-          setCounter(prev => prev + 1);
-          setCounter(prev => prev + 1);
-        }}
-      >
-        Update Counter
-      </Button>
+      <PersistGate persistor={persistor}>
+        <Layout>
+          <ControlledCitySelect city={city} />
+          <ValidSyntax />
+          <AppBar />
+          <ErrorBoundary>
+            <TaskForm />
+          </ErrorBoundary>
+          <TaskList />
+        </Layout>
+        <Button onClick={() => setCity(CITY_OPTIONS.Lviv)}>Change City</Button>
+        <div ref={divRef}>Counter Value: {counter}</div>
+        <Button
+          onClick={() => {
+            setCounter(prev => prev + 1);
+            setCounter(prev => prev + 1);
+            setCounter(prev => prev + 1);
+          }}
+        >
+          Update Counter
+        </Button>
+      </PersistGate>
     </Provider>
   );
 };

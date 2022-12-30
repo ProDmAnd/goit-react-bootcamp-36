@@ -18,7 +18,7 @@ const AppTree = (
     <UserAuthProvider>
       <BrowserRouter basename="react-homework-template">
         <AppThemeProvider>
-          <ProductsApp />
+          <App />
         </AppThemeProvider>
       </BrowserRouter>
     </UserAuthProvider>

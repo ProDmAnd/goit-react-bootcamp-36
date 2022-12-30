@@ -1,7 +1,7 @@
-import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { Button } from 'redux-template/Button/Button';
 import { createTask } from 'redux/tasks/actions';
+import { tasksActions } from 'redux/tasks/slice';
 
 import css from './TaskForm.module.css';
 
@@ -10,13 +10,8 @@ export const TaskForm = () => {
   const handleSubmit = event => {
     event.preventDefault();
     const form = event.target;
-    dispatch(
-      createTask({
-        id: nanoid(),
-        text: form.elements.text.value,
-        completed: false,
-      })
-    );
+    // dispatch(createTask(form.elements.text.value));
+    dispatch(tasksActions.create(form.elements.text.value));
     form.reset();
   };
 
@@ -34,7 +29,7 @@ export const TaskForm = () => {
 
   const evnetListener = logWithText('new text');
   console.log('call eventListener', evnetListener());
-  
+
   return (
     <form className={css.form} onSubmit={handleSubmit}>
       <input

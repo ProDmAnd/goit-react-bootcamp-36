@@ -2,6 +2,7 @@ import { filterStatus } from 'constants/filtres';
 import { useDispatch, useSelector } from 'react-redux';
 import { Task } from 'redux-template/Task/Task';
 import { deleteTaskById, toggleTaskById } from 'redux/tasks/actions';
+import { tasksActions } from 'redux/tasks/slice';
 import css from './TaskList.module.css';
 
 const getVisibleTasks = (tasks, statusFilter) => {
@@ -21,8 +22,8 @@ export const TaskList = () => {
   const statusFilter = useSelector(state => state.filters.status);
   const filteredTasks = getVisibleTasks(tasks, statusFilter);
 
-  const toggleTask = id => dispatch(toggleTaskById(id));
-  const deleteTask = id => dispatch(deleteTaskById(id));
+  const toggleTask = id => dispatch(tasksActions.toggle(id));
+  const deleteTask = id => dispatch(tasksActions.delete(id));
 
   return (
     <div

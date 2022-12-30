@@ -8,13 +8,8 @@ import {
 } from '@mui/material';
 import clsx from 'clsx';
 import useQuery from 'hooks/useQuery';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom';
+import React, { useEffect, useMemo } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchArticles } from 'services/HNewsAPI';
 import css from './NewsList.module.css';
 
