@@ -6,7 +6,7 @@ const Wrapper = ({ children }) => {
 
   return (
     <div
-      style={{ backgroundColor: themeLight ? '#fff' : '#000' }}
+      style={{ backgroundColor: themeLight ? 'transparent' : '#000' }}
       className={css.wrap}
     >
       {children}

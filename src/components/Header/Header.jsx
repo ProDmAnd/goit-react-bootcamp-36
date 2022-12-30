@@ -1,15 +1,9 @@
 import { Button } from '@mui/material';
 import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
+import { pages } from 'constants/routes';
 import { useUserAuthContext } from 'contexts/UserAuthProvider';
 import { Link, NavLink } from 'react-router-dom';
 import css from './Header.module.css';
-
-const pages = [
-  { to: '/', title: 'Home' },
-  { to: 'about', title: 'About' },
-  { to: 'news', title: 'News' },
-  { to: 'products', title: 'Products' },
-];
 
 const Header = () => {
   const { isAuth, login, logout } = useUserAuthContext();
