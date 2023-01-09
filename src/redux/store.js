@@ -1,7 +1,4 @@
-import {
-  combineReducers,
-  configureStore,
-} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -15,15 +12,13 @@ import {
 import storage from 'redux-persist/lib/storage';
 import reducer from './reducer';
 
-// export const store = createStore(reducer, devToolsEnhancer());
-
 const persistedReducer = persistReducer(
-  { key: 'app', storage, whitelist: ['tasks']  },
+  { key: 'app', storage, whitelist: ['tasks'] },
   combineReducers(reducer)
 );
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -32,4 +27,4 @@ export const store = configureStore({
     }),
 });
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { filterStatus } from 'constants/filtres';
-import { tasksActions } from 'redux/tasks/slice';
+import { createTask, deleteTask } from 'redux/tasks/operations';
 
 const filters = createSlice({
   initialState: { status: filterStatus.all, order: 'asc' },
@@ -12,35 +12,15 @@ const filters = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(tasksActions.create, state => {
+      .addCase(createTask.fulfilled, state => {
         state.status = filterStatus.all;
       })
-      .addCase(tasksActions.delete, state => {
+      .addCase(deleteTask.fulfilled, state => {
         state.status = filterStatus.all;
       });
   },
-  // extraReducers: {
-  //   [tasksActions.create]: state => {
-  //     state.status = filterStatus.all;
-  //   },
-  // },
 });
 
 export const filtersReducer = filters.reducer;
 
 export const filtersActions = filters.actions;
-
-const slice = createSlice({
-  initialState: 'all',
-  name: 'status',
-  reducers: {
-    changeStatus() {},
-  },
-});
-
-const arr = [1, 2, 3, 4, 5, 6].map((value, ind) => {
-  if (value > 3) {
-    return { value, ind };
-  }
-  return ('as123');
-});

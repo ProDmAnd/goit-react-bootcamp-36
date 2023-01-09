@@ -1,81 +1,54 @@
 import { Button } from '@mui/material';
-import ControlledCitySelect from 'components/ControlledCitySelect/ControlledCitySelect';
 import ErrorBoundary from 'components/ErrorBoundary';
-import { CITY_OPTIONS } from 'constants/loginForm';
-import { useEffect, useRef } from 'react';
-import { useState } from 'react';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { AppBar } from 'redux-template/AppBar/AppBar';
 import { Layout } from 'redux-template/Layout/Layout';
 import { TaskForm } from 'redux-template/TaskForm/TaskForm';
 import { TaskList } from 'redux-template/TaskList/TaskList';
-import { persistor, store } from 'redux/store';
-
-const ValidSyntax = () => {
-  return [<div key={1}>Div 1</div>, 'asdasd', <span key={2}>span 1</span>];
-};
+import { fetchTasks } from 'redux/tasks/operations';
 
 export const App = () => {
-  const [city, setCity] = useState(CITY_OPTIONS.Dnipro);
-  const [counter, setCounter] = useState(0);
-  const divRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('componentDidMount', divRef.current?.focus);
-    // const interval = setInterval(
-    //   () => console.log('Interval', new Date().toISOString()),
-    //   1000
-    // );
-    return () => {
-      // console.log('componentWillUnmount');
-      // clearInterval(interval);
-    };
-  }, []);
+    dispatch(fetchTasks());
+    return () => {};
+  }, [dispatch]);
 
-  useEffect(() => {
-    console.log('componentDidUpdate counter', counter);
-
-    if (!counter) return;
-    const interval = setInterval(
-      () => console.log('Interval', new Date().toISOString()),
-      1000
-    );
-    return () => {
-      clearInterval(interval);
-    };
-  }, [counter]);
-
-  useEffect(() => {
-    if (city !== CITY_OPTIONS.Dnipro) {
-      setCounter(1);
+  const request = async () => {
+    try {
+      const data = await new Promise((res, rej) => {
+        setTimeout(() => {
+          if (Math.random() > 0.5) {
+            res([]);
+            return;
+          }
+          rej('Error');
+        }, 1000);
+      });
+      return data;
+    } catch (error) {
+      console.log('Error', error);
+      return [];
     }
-  }, [city]);
+  };
+
+  const check = async () => {
+    const data = await request();
+    console.log('DATA!', data);
+  };
 
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <Layout>
-          <ControlledCitySelect city={city} />
-          <ValidSyntax />
-          <AppBar />
-          <ErrorBoundary>
-            <TaskForm />
-          </ErrorBoundary>
-          <TaskList />
-        </Layout>
-        <Button onClick={() => setCity(CITY_OPTIONS.Lviv)}>Change City</Button>
-        <div ref={divRef}>Counter Value: {counter}</div>
-        <Button
-          onClick={() => {
-            setCounter(prev => prev + 1);
-            setCounter(prev => prev + 1);
-            setCounter(prev => prev + 1);
-          }}
-        >
-          Update Counter
-        </Button>
-      </PersistGate>
-    </Provider>
+    <>
+      <Layout>
+        <AppBar />
+        <ErrorBoundary>
+          <TaskForm />
+        </ErrorBoundary>
+        <TaskList />
+      </Layout>
+      <Button onClick={check}>CHECK REQUEST</Button>
+    </>
   );
 };

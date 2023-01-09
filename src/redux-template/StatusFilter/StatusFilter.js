@@ -1,7 +1,6 @@
 import { filterStatus } from 'constants/filtres';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'redux-template/Button/Button';
-import { changeStatus } from 'redux/filters/actions';
 import { filtersActions } from 'redux/filters/slice';
 import css from './StatusFilter.module.css';
 

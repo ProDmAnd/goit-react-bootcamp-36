@@ -1,50 +1,66 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
+import { createTask, deleteTask, fetchTasks, toggleTask } from './operations';
+
+const requestPending = state => {
+  state.isLoading = true;
+  state.error = '';
+};
+
+const requestFullfiled = state => {
+  state.isLoading = false;
+};
+
+const requestRejected = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = payload;
+};
+
+const tasksOptions = createSlice({
+  initialState: {
+    isLoading: false,
+    error: '',
+    requestCount: 0,
+  },
+  name: 'tasksOptions',
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addCase(fetchTasks.pending, requestPending)
+      .addCase(fetchTasks.fulfilled, requestFullfiled)
+      .addCase(fetchTasks.rejected, requestRejected)
+      .addCase(createTask.pending, requestPending)
+      .addCase(createTask.fulfilled, requestFullfiled)
+      .addCase(createTask.rejected, requestRejected)
+      .addCase(deleteTask.pending, requestPending)
+      .addCase(deleteTask.fulfilled, requestFullfiled)
+      .addCase(deleteTask.rejected, requestRejected)
+      .addCase(toggleTask.pending, requestPending)
+      .addCase(toggleTask.fulfilled, requestFullfiled)
+      .addCase(toggleTask.rejected, requestRejected);
+  },
+});
+
+export const tasksOptionsReducers = tasksOptions.reducer;
 
 const tasks = createSlice({
   initialState: [],
   name: 'tasks',
-  reducers: {
-    create: {
-      prepare: text => ({ payload: { id: nanoid(), completed: false, text } }),
-      reducer: (state, { payload: task }) => {
-        // state.push(task);
-        return [...state, task];
-      },
+  reducers: {},
+  extraReducers: {
+    [fetchTasks.fulfilled]: (state, { payload }) => {
+      return payload;
     },
-    delete: (state, { payload: taskId }) => {
-      // const index = state.findIndex(({ id }) => id === taskId);
-      // state.splice(index);
+    [createTask.fulfilled]: (state, { payload: task }) => {
+      return [...state, task];
+    },
+    [deleteTask.fulfilled]: (state, { payload: taskId }) => {
       return state.filter(({ id }) => id !== taskId);
     },
-    toggle: (state, { payload: id }) => {
-      //   for (let index = 0; index < state.length; index++) {
-      //     const task = state[index];
-      //     if (task.id === id) {
-      //       state[index].completed = !task.completed;
-      //       break;
-      //     }
-      //   }
 
-      //   for (const task of state) {
-      //     if (task.id === id) {
-      //       task.completed = !task.completed;
-      //       break;
-      //     }
-      //   }
-
-      //   const index = state.findIndex(task => task.id === id);
-      //   state.splice(index, 1, {
-      //     ...state[index],
-      //     completed: !state[index].completed,
-      //   });
-      return state.map(task =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      );
+    [toggleTask.fulfilled]: (state, { payload }) => {
+      return state.map(task => (task.id === payload.id ? payload : task));
     },
   },
 });
 
 export const tasksReducer = tasks.reducer;
-
-export const tasksActions = tasks.actions;
