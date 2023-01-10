@@ -14,14 +14,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { ProductsApp } from 'ProductsApp';
 import { store } from 'redux/store';
 import { Provider } from 'react-redux';
-import { createTheme, ThemeProvider } from '@mui/material';
 
 const AppTree = (
   <React.StrictMode>
     <UserAuthProvider>
       <BrowserRouter basename="react-homework-template">
         <Provider store={store}>
-          <ProductsApp />
+          <App />
         </Provider>
       </BrowserRouter>
     </UserAuthProvider>

@@ -17,8 +17,6 @@ const requestRejected = (state, { payload }) => {
 
 const tasksOptions = createSlice({
   initialState: {
-    isLoading: false,
-    error: '',
     requestCount: 0,
   },
   name: 'tasksOptions',
@@ -43,22 +41,30 @@ const tasksOptions = createSlice({
 export const tasksOptionsReducers = tasksOptions.reducer;
 
 const tasks = createSlice({
-  initialState: [],
+  initialState: {
+    list: [],
+    isLoading: false,
+    error: '',
+  },
   name: 'tasks',
   reducers: {},
   extraReducers: {
     [fetchTasks.fulfilled]: (state, { payload }) => {
-      return payload;
+      state.list = payload;
     },
     [createTask.fulfilled]: (state, { payload: task }) => {
-      return [...state, task];
+      state.list.push(task);
     },
     [deleteTask.fulfilled]: (state, { payload: taskId }) => {
-      return state.filter(({ id }) => id !== taskId);
+      state.list = state.list.filter(({ id }) => id !== taskId);
     },
 
     [toggleTask.fulfilled]: (state, { payload }) => {
-      return state.map(task => (task.id === payload.id ? payload : task));
+      for (let index = 0; index < state.list.length; index++) {
+        if (state.list[index].id === payload.id) {
+          state.list[index] = payload;
+        }
+      }
     },
   },
 });

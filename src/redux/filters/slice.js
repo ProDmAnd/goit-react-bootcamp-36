@@ -3,7 +3,7 @@ import { filterStatus } from 'constants/filtres';
 import { createTask, deleteTask } from 'redux/tasks/operations';
 
 const filters = createSlice({
-  initialState: { status: filterStatus.all, order: 'asc' },
+  initialState: { status: filterStatus.all },
   name: 'filters',
   reducers: {
     changeStatus(state, { payload }) {

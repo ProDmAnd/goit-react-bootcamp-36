@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { selectTasksList } from './selectors';
 
 const TasksAPI = axios.create({
   baseURL: 'https://63bb3a8432d17a50908aa204.mockapi.io/',
@@ -45,7 +46,7 @@ export const toggleTask = createAsyncThunk(
   'tasks/toggle',
   async (id, thunkApi) => {
     try {
-      const task = thunkApi.getState().tasks.find(task => task.id === id);
+      const task = selectTasksList(thunkApi.getState()).find(task => task.id === id);
       const response = await TasksAPI.put(`tasks-list/${id}`, {
         completed: !task.completed,
       });
