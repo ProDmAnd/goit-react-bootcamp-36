@@ -12,14 +12,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { pages } from 'constants/routes';
 import { useNavigate } from 'react-router-dom';
 import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
+import { Badge } from '@mui/material';
+import { selectCartListLength } from 'redux/cart/selectors';
+import { useSelector } from 'react-redux';
 
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
   const navigate = useNavigate();
+  const cartListLength = useSelector(selectCartListLength);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -132,6 +137,11 @@ function ResponsiveAppBar() {
           <Box style={{ marginRight: 10 }}>
             <ThemeSwitcher />
           </Box>
+          <Badge color="secondary" sx={{ mr: 2 }} badgeContent={cartListLength}>
+            <IconButton onClick={navigateTo('cart')}>
+              <ShoppingCartIcon color="success" />
+            </IconButton>
+          </Badge>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -7,9 +7,9 @@ const makeupApi = axios.create({
 /**
  *
  * @param {MakeupQueryParams} params
- * @returns {MakeupResponse[]}
+ * @returns {Promise<MakeupResponse[]>}
  */
-export const searchMakeupProducts = async (params = {}) => {
+const search = async (params = {}) => {
   const response = await makeupApi.get('products.json', { params });
 
   return response.data;
@@ -18,9 +18,9 @@ export const searchMakeupProducts = async (params = {}) => {
 /**
  *
  * @param {number|string} id
- * @returns {MakeupResponse}
+ * @returns {Promise<MakeupResponse>}
  */
-export const getProduct = async (id = 0) => {
+const getProduct = async (id = 0) => {
   const response = await makeupApi.get(`products/${id}.json`);
   return response.data;
 };
@@ -35,6 +35,10 @@ export const getProduct = async (id = 0) => {
  * @property {number} rating_greater_than
  * @property {number} rating_less_than
  */
+
+const MakeupAPI = { search, getProduct };
+
+export default MakeupAPI;
 
 const tagList = [
   'Canadian',

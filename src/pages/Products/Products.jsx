@@ -5,33 +5,43 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
-import useQuery from 'hooks/useQuery';
-import React, { useState } from 'react';
 import { useEffect } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import { searchMakeupProducts } from 'services/MakeupAPI';
 import css from './Products.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectProductsError,
+  selectProductsList,
+  selectProductsLoading,
+} from 'redux/products/selectors';
+import { getProductsList } from 'redux/products/actions';
+import { cartActions } from 'redux/cart/slice';
 
 const Products = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  /** @type {[import('services/MakeupAPI').MakeupResponse[], (params?: import('services/MakeupAPI').MakeupQueryParams) => Promise<any>, boolean, string]} */
-  const [products, fetchProducts, loading, errorMessage] = useQuery(
-    [],
-    searchMakeupProducts
-  );
+  const location = useLocation();
+  const products = useSelector(selectProductsList);
+  const errorMessage = useSelector(selectProductsError);
+  const loading = useSelector(selectProductsLoading);
 
   useEffect(() => {
-    fetchProducts({ rating_greater_than: 4.99 });
-  }, [fetchProducts]);
+    dispatch(getProductsList({ rating_greater_than: 4.99 }));
+  }, [dispatch]);
+
+  const loadingText = !products.length ? (
+    <h4>Loading...</h4>
+  ) : (
+    <h4>Updating List...</h4>
+  );
 
   return (
     <>
-      {loading && <h4>Loading...</h4>}
+      {loading && loadingText}
       {errorMessage && <p>{errorMessage}</p>}
       <div className={css.container}>
         {!errorMessage &&
-          products.map(({ id, name, price, tag_list, brand }) => (
+          products.map(({ id, name, price, tag_list, brand, image_link }) => (
             <Card key={id} sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent
                 sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
@@ -54,14 +64,22 @@ const Products = () => {
               <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Button
                   variant="outlined"
-                  onClick={() => {
-                    navigate(id.toString());
-                    console.log('navigate', id);
-                  }}
+                  onClick={() =>
+                    navigate(id.toString(), { state: { from: location } })
+                  }
                 >
                   Details
                 </Button>
-                <Button variant="contained">Add to Cart</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(
+                      cartActions.add({ id, name, price, brand, image_link })
+                    );
+                  }}
+                >
+                  Add to Cart
+                </Button>
               </CardActions>
             </Card>
           ))}
