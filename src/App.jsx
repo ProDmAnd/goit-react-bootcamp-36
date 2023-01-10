@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import ErrorBoundary from 'components/ErrorBoundary';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -16,29 +15,6 @@ export const App = () => {
     return () => {};
   }, [dispatch]);
 
-  const request = async () => {
-    try {
-      const data = await new Promise((res, rej) => {
-        setTimeout(() => {
-          if (Math.random() > 0.5) {
-            res([]);
-            return;
-          }
-          rej('Error');
-        }, 1000);
-      });
-      return data;
-    } catch (error) {
-      console.log('Error', error);
-      return [];
-    }
-  };
-
-  const check = async () => {
-    const data = await request();
-    console.log('DATA!', data);
-  };
-
   return (
     <>
       <Layout>
@@ -48,7 +24,6 @@ export const App = () => {
         </ErrorBoundary>
         <TaskList />
       </Layout>
-      <Button onClick={check}>CHECK REQUEST</Button>
     </>
   );
 };

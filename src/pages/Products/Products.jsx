@@ -11,8 +11,10 @@ import { useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { searchMakeupProducts } from 'services/MakeupAPI';
 import css from './Products.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
+  const navigate = useNavigate();
   /** @type {[import('services/MakeupAPI').MakeupResponse[], (params?: import('services/MakeupAPI').MakeupQueryParams) => Promise<any>, boolean, string]} */
   const [products, fetchProducts, loading, errorMessage] = useQuery(
     [],
@@ -50,7 +52,15 @@ const Products = () => {
                 <Typography variant="body1">${price}</Typography>
               </CardContent>
               <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="outlined">Details</Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    navigate(id.toString());
+                    console.log('navigate', id);
+                  }}
+                >
+                  Details
+                </Button>
                 <Button variant="contained">Add to Cart</Button>
               </CardActions>
             </Card>

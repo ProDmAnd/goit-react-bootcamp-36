@@ -12,3 +12,15 @@
 .container p {
   margin: 3px 0px;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}

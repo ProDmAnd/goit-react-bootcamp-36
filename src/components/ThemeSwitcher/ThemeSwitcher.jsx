@@ -4,10 +4,9 @@ import { useThemeContext } from 'contexts/AppThemeProvider';
 import css from './ThemeSwitcher.module.css';
 
 const ThemeSwitcher = () => {
-  const { themeLight, toggleTheme } = useThemeContext();
-  // const [light, setLight] = useState(true);
-  // const toggle = () => setLight(prev => !prev);
+  const { mode, toggleTheme } = useThemeContext();
 
+  const themeLight = mode === 'light';
   return (
     <div className={css.container}>
       <span

@@ -1,4 +1,5 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Rating, Typography } from '@mui/material';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import React from 'react';
 
 const ProductDetails = () => {
@@ -20,7 +21,7 @@ const ProductDetails = () => {
     rating: 5.0,
     category: null,
     product_type: 'bronzer',
-    tag_list: [],
+    tag_list: ['blush', 'bronzer', 'nyx'],
     created_at: '2016-10-01T18:36:36.267Z',
     updated_at: '2017-12-23T21:08:52.447Z',
     product_api_url: 'http://makeup-api.herokuapp.com/api/v1/products/508.json',
@@ -30,13 +31,42 @@ const ProductDetails = () => {
   };
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ minWidth: 600 }}>
+      <Box sx={{ width: 700, display: 'flex', flexDirection: 'column' }}>
+        <Box>
+          <Button startIcon={<KeyboardBackspaceIcon />}>
+            Back to products
+          </Button>
+        </Box>
         <Typography variant="h6">{product.name}</Typography>
-        <Typography variant="body1">{product.brand.toUpperCase()}</Typography>
-        <img src={product.image_link} alt="product" width={300} />
-        <Typography variant="body1">
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <img src={product.image_link} alt="product" width={300} />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            mb: 2,
+            alignItems: 'center',
+          }}
+        >
+          <Box>
+            <Typography variant="h6">
+              Brand: {product.brand.toUpperCase()}
+            </Typography>
+            <Typography variant="body1">
+              Type: {product.product_type}
+            </Typography>
+          </Box>
+          <Rating value={product.rating} readOnly />
+        </Box>
+        <Typography variant="body1" sx={{ marginBottom: 2 }}>
           {product.tag_list?.length ? '#' + product.tag_list?.join(' #') : ''}
         </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+          <Typography variant="h6">${product.price}</Typography>
+          <Button variant="contained">Add to cart</Button>
+        </Box>
+        <Typography>{product.description}</Typography>
       </Box>
     </Box>
   );

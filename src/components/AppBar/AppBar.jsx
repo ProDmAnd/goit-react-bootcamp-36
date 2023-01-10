@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { pages } from 'constants/routes';
 import { useNavigate } from 'react-router-dom';
+import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
 
 const settings = ['Profile', 'Logout'];
 
@@ -128,7 +129,9 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-
+          <Box style={{ marginRight: 10 }}>
+            <ThemeSwitcher />
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from 'App';
 // Fonts for Material UI
@@ -14,16 +14,15 @@ import { BrowserRouter } from 'react-router-dom';
 import { ProductsApp } from 'ProductsApp';
 import { store } from 'redux/store';
 import { Provider } from 'react-redux';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 const AppTree = (
   <React.StrictMode>
     <UserAuthProvider>
       <BrowserRouter basename="react-homework-template">
-        <AppThemeProvider>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </AppThemeProvider>
+        <Provider store={store}>
+          <ProductsApp />
+        </Provider>
       </BrowserRouter>
     </UserAuthProvider>
   </React.StrictMode>

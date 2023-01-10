@@ -1,7 +1,6 @@
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
   TextField,
   Typography,
@@ -9,14 +8,11 @@ import {
 import clsx from 'clsx';
 import useQuery from 'hooks/useQuery';
 import React, { useEffect, useMemo } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { fetchArticles } from 'services/HNewsAPI';
 import css from './NewsList.module.css';
 
 const NewsList = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   // const [hitsPerPage, setHitsPerPage] = useState('10');
   const [articles, getArticles, loading, errorMessage] = useQuery(
     [],
@@ -62,21 +58,11 @@ const NewsList = () => {
             <CardContent>
               <Typography variant="h6">{title || story_title}</Typography>
             </CardContent>
-            <CardActions>
-              <Button
-                variant="contained"
-                onClick={() =>
-                  navigate(objectID, { state: { from: location } })
-                }
-              >
-                Open
-              </Button>
-            </CardActions>
           </Card>
         ))}
       </div>
     );
-  }, [articles, params, navigate, location]);
+  }, [articles, params]);
 
   return (
     <>
