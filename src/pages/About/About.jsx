@@ -1,8 +1,10 @@
-const About = ({title = "About"}) => {
+import { Box, Typography } from '@mui/material';
+
+const About = ({ title = 'About' }) => {
   return (
-    <div>
-      <h3>{title}</h3>
-      <p>
+    <Box>
+      <Typography variant="h3">{title}</Typography>
+      <Typography variant="body1">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam omnis
         modi natus. Sit pariatur praesentium ipsa enim reprehenderit sunt.
         Dolorum temporibus optio tempora esse. Harum, voluptatibus? Error nam
@@ -36,8 +38,8 @@ const About = ({title = "About"}) => {
         Ullam illo cumque vitae similique commodi tenetur aperiam incidunt
         labore omnis praesentium quia ratione fugiat culpa voluptas nemo esse,
         expedita eaque enim error non consequatur aspernatur.
-      </p>
-    </div>
+      </Typography>
+    </Box>
   );
 };
 

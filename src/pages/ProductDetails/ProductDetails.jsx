@@ -1,6 +1,5 @@
 import { Box, Button, Rating, Typography } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import React from 'react';
 
 const ProductDetails = () => {
   /** @type {import('services/MakeupAPI').MakeupResponse} */

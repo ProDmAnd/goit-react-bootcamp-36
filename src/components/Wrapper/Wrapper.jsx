@@ -1,16 +1,17 @@
-import { useThemeContext } from 'contexts/AppThemeProvider';
-import css from './Wrapper.module.css';
+import { Box } from '@mui/material';
 
 const Wrapper = ({ children }) => {
-  const { mode } = useThemeContext();
-  const themeLight = mode === 'light';
   return (
-    <div
-      style={{ backgroundColor: themeLight ? 'transparent' : '#000' }}
-      className={css.wrap}
+    <Box
+      sx={{
+        backgroundColor: 'background.default',
+        color: 'text.primary',
+      }}
     >
-      <div className={css.content}>{children}</div>
-    </div>
+      <Box sx={{ padding: 2, maxWidth: 1120, margin: '0 auto' }}>
+        {children}
+      </Box>
+    </Box>
   );
 };
 
