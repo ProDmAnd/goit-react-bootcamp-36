@@ -15,7 +15,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const AppTree = (
   <React.StrictMode>
-    <BrowserRouter basename="react-homework-template">
+    <BrowserRouter basename="goit-react-bootcamp-36">
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <ProductsApp />
