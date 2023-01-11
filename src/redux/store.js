@@ -13,12 +13,12 @@ import storage from 'redux-persist/lib/storage';
 import reducer from './reducer';
 
 const persistedReducer = persistReducer(
-  { key: 'app', storage, whitelist: ['tasks'] },
+  { key: 'app', storage, whitelist: ['user'] },
   combineReducers(reducer)
 );
 
 export const store = configureStore({
-  reducer,
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -27,4 +27,4 @@ export const store = configureStore({
     }),
 });
 
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);

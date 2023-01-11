@@ -7,14 +7,14 @@ import { TaskForm } from 'redux-template/TaskForm/TaskForm';
 import { TaskList } from 'redux-template/TaskList/TaskList';
 import { fetchTasks } from 'redux/tasks/operations';
 
-export const App = () => {
+export const TaskApp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTasks());
     return () => {};
   }, [dispatch]);
-
+ 
   return (
     <>
       <Layout>

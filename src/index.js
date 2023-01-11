@@ -7,21 +7,21 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import './index.css';
-import UserAuthProvider from 'contexts/UserAuthProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { ProductsApp } from 'ProductsApp';
-import { store } from 'redux/store';
+import { persistor, store } from 'redux/store';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const AppTree = (
   <React.StrictMode>
-    <UserAuthProvider>
-      <BrowserRouter basename="react-homework-template">
-        <Provider store={store}>
+    <BrowserRouter basename="react-homework-template">
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
           <ProductsApp />
-        </Provider>
-      </BrowserRouter>
-    </UserAuthProvider>
+        </PersistGate>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

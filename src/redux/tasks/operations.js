@@ -10,6 +10,7 @@ export const fetchTasks = createAsyncThunk(
   'tasks/fetchAll',
   async (_, thunkApi) => {
     try {
+      await new Promise(res => setTimeout(() => res(), 10000));
       const response = await TasksAPI.get('tasks-list');
       return response.data;
     } catch (error) {
@@ -46,7 +47,9 @@ export const toggleTask = createAsyncThunk(
   'tasks/toggle',
   async (id, thunkApi) => {
     try {
-      const task = selectTasksList(thunkApi.getState()).find(task => task.id === id);
+      const task = selectTasksList(thunkApi.getState()).find(
+        task => task.id === id
+      );
       const response = await TasksAPI.put(`tasks-list/${id}`, {
         completed: !task.completed,
       });

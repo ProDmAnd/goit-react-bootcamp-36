@@ -14,14 +14,15 @@ import {
 } from '@mui/material';
 
 import { CITY_OPTIONS, GENDER_OPTIONS } from 'constants/loginForm';
-import { useUserAuthContext } from 'contexts/UserAuthProvider';
 import { Form, Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import useAuth from 'hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { loginValidationScheme } from './loginValidation';
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { login } = useUserAuthContext();
+  const { login } = useAuth();
+  const location = useLocation();
   const textFields = [
     {
       key: 'email',
@@ -48,8 +49,9 @@ const LoginForm = () => {
         }}
         validationSchema={loginValidationScheme}
         onSubmit={values => {
-          login();
-          navigate('/profile');
+          login(values).then(() => {
+            navigate(location.state?.from || '/products');
+          });
         }}
       >
         {props => (

@@ -19,11 +19,11 @@ import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
 import { Badge } from '@mui/material';
 import { selectCartListLength } from 'redux/cart/selectors';
 import { useSelector } from 'react-redux';
-
-const settings = ['Profile', 'Logout'];
+import useAuth from 'hooks/useAuth';
 
 function ResponsiveAppBar() {
   const navigate = useNavigate();
+  const { isAuth, logout } = useAuth();
   const cartListLength = useSelector(selectCartListLength);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -47,6 +47,22 @@ function ResponsiveAppBar() {
     navigate(to);
     handleCloseNavMenu();
   };
+  const settings = [
+    {
+      name: 'Profile',
+      action: () => {
+        navigate('/profile');
+        handleCloseUserMenu();
+      },
+    },
+    {
+      name: 'Logout',
+      action: () => {
+        logout();
+        handleCloseUserMenu();
+      },
+    },
+  ];
 
   return (
     <AppBar position="static">
@@ -133,6 +149,14 @@ function ResponsiveAppBar() {
                 {page.title}
               </Button>
             ))}
+            {!isAuth && (
+              <Button
+                onClick={navigateTo('/login')}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Login
+              </Button>
+            )}
           </Box>
           <Box style={{ marginRight: 10 }}>
             <ThemeSwitcher />
@@ -164,9 +188,9 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settings.map(({ name, action }) => (
+                <MenuItem key={name} onClick={action}>
+                  <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

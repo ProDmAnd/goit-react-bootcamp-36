@@ -1,6 +1,6 @@
 export const pages = [
-  { to: '/', title: 'Home' },
+  { to: '/', title: 'News' },
   { to: 'about', title: 'About' },
-  { to: 'news', title: 'News' },
   { to: 'products', title: 'Products' },
+  { to: 'tasks', title: 'Tasks' },
 ];

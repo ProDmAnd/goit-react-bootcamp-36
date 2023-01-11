@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { userActions } from 'redux/user/slice';
 import { createTask, deleteTask, fetchTasks, toggleTask } from './operations';
 
 const requestPending = state => {
@@ -65,6 +66,9 @@ const tasks = createSlice({
           state.list[index] = payload;
         }
       }
+    },
+    [userActions.logout]: state => {
+      state.list = [];
     },
   },
 });

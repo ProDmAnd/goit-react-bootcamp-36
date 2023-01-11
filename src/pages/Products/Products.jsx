@@ -26,7 +26,9 @@ const Products = () => {
   const loading = useSelector(selectProductsLoading);
 
   useEffect(() => {
-    dispatch(getProductsList({ rating_greater_than: 4.99 }));
+    dispatch(
+      getProductsList({ rating_greater_than: 4.99, price_greater_than: 10 })
+    );
   }, [dispatch]);
 
   const loadingText = !products.length ? (
