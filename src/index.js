@@ -1,10 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from 'components/App';
-import './index.css';
+// Fonts for Material UI
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { ProductsApp } from 'ProductsApp';
+import { persistor, store } from 'redux/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
+const AppTree = (
   <React.StrictMode>
-    <App />
+    <BrowserRouter basename="goit-react-bootcamp-36">
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <ProductsApp />
+        </PersistGate>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
+
+ReactDOM.createRoot(document.getElementById('root')).render(AppTree);

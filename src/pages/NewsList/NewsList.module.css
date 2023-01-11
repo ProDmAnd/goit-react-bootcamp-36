@@ -1,0 +1,15 @@
+.flexContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.buttons {
+  margin-bottom: 20px;
+}
+.newsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+}

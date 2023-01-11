@@ -1,0 +1,22 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(120, 120, 120, 0.4);
+}
+
+.content {
+  width: 50vw;
+  max-height: 50vh;
+  overflow: auto;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}

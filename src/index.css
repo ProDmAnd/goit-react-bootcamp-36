@@ -13,3 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.active {
+  color: white;
+  text-decoration-line: overline;
+  font-size: 20px;
+}
