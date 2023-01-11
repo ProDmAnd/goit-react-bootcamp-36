@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { getCity, getWarehouse } from 'services/PostAPI';
+import { getWarehouse } from 'services/PostAPI';
 
 class WarehouseFinder extends PureComponent {
   static defaultProps = {
