@@ -13,7 +13,7 @@ import { persistor, store } from 'redux/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-const AppTree = (
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter basename="goit-react-bootcamp-36">
       <Provider store={store}>
@@ -24,5 +24,3 @@ const AppTree = (
     </BrowserRouter>
   </React.StrictMode>
 );
-
-ReactDOM.createRoot(document.getElementById('root')).render(AppTree);
