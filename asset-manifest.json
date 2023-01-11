@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/goit-react-bootcamp-36/static/css/main.7cf7c29e.css",
-    "main.js": "/goit-react-bootcamp-36/static/js/main.82477a52.js",
+    "main.js": "/goit-react-bootcamp-36/static/js/main.5d72aff1.js",
     "about.js": "/goit-react-bootcamp-36/static/js/about.60f60109.chunk.js",
     "not-found.js": "/goit-react-bootcamp-36/static/js/not-found.1a209be1.chunk.js",
     "login-form.js": "/goit-react-bootcamp-36/static/js/login-form.73334e1d.chunk.js",
@@ -40,7 +40,7 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/goit-react-bootcamp-36/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/goit-react-bootcamp-36/index.html",
     "main.7cf7c29e.css.map": "/goit-react-bootcamp-36/static/css/main.7cf7c29e.css.map",
-    "main.82477a52.js.map": "/goit-react-bootcamp-36/static/js/main.82477a52.js.map",
+    "main.5d72aff1.js.map": "/goit-react-bootcamp-36/static/js/main.5d72aff1.js.map",
     "about.60f60109.chunk.js.map": "/goit-react-bootcamp-36/static/js/about.60f60109.chunk.js.map",
     "not-found.1a209be1.chunk.js.map": "/goit-react-bootcamp-36/static/js/not-found.1a209be1.chunk.js.map",
     "login-form.73334e1d.chunk.js.map": "/goit-react-bootcamp-36/static/js/login-form.73334e1d.chunk.js.map",
@@ -48,6 +48,6 @@
   },
   "entrypoints": [
     "static/css/main.7cf7c29e.css",
-    "static/js/main.82477a52.js"
+    "static/js/main.5d72aff1.js"
   ]
 }
