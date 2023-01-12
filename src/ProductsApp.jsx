@@ -1,15 +1,14 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
-import NewsList from 'pages/NewsList/NewsList';
 import SharedLayout from 'components/SharedLayout';
-import Products from 'pages/Products/Products';
 import Profile from 'pages/Profile/Profile';
-import { lazy } from 'react';
-import ProductDetails from 'pages/ProductDetails/ProductDetails';
+import { lazy, useEffect } from 'react';
 import AppThemeProvider from 'contexts/AppThemeProvider';
 import Cart from 'pages/Cart/Cart';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
-import { TaskApp } from 'TaskApp';
+import { useDispatch } from 'react-redux';
+import { store } from 'redux/store';
+import { getCurrentUser } from 'redux/user/operations';
 
 const LazyAbout = lazy(() =>
   import(/* webpackChunkName: "about" */ 'pages/About/About')
@@ -21,14 +20,36 @@ const LazyLoginForm = lazy(() =>
   import(/* webpackChunkName: "login-form" */ 'pages/LoginForm/LoginForm')
 );
 
-export const ProductsApp = () => {
+const LazyTaskApp = lazy(() =>
+  import(/* webpackChunkName: "task-app" */ './TaskApp')
+);
+
+const LazyProducts = lazy(() =>
+  import(/* webpackChunkName: "task-app" */ 'pages/Products/Products')
+);
+
+const LazyProductDetails = lazy(() =>
+  import(
+    /* webpackChunkName: "task-app" */ 'pages/ProductDetails/ProductDetails'
+  )
+);
+
+const LazyNewsList = lazy(() =>
+  import(/* webpackChunkName: "task-app" */ 'pages/NewsList/NewsList')
+);
+
+const ProductsApp = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
   return (
     <AppThemeProvider>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route
             index
-            element={<NewsList />}
+            element={<LazyNewsList />}
             errorElement={<h1>Somethings went wrong</h1>}
           />
           <Route
@@ -37,8 +58,8 @@ export const ProductsApp = () => {
           />
           <Route path="about" element={<LazyAbout title="Not About" />} />
           <Route path="products" element={<Outlet />}>
-            <Route index element={<Products />} />
-            <Route path=":id" element={<ProductDetails />} />
+            <Route index element={<LazyProducts />} />
+            <Route path=":id" element={<LazyProductDetails />} />
           </Route>
           <Route
             path="profile"
@@ -50,7 +71,9 @@ export const ProductsApp = () => {
           />
           <Route
             path="tasks"
-            element={<PrivateRoute element={<TaskApp />} redirectTo="/login" />}
+            element={
+              <PrivateRoute element={<LazyTaskApp />} redirectTo="/login" />
+            }
           />
           <Route path="*" element={<LazyNotFound />} />
         </Route>
@@ -58,3 +81,5 @@ export const ProductsApp = () => {
     </AppThemeProvider>
   );
 };
+
+export default ProductsApp;

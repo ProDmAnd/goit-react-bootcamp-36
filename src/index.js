@@ -8,10 +8,11 @@ import '@fontsource/roboto/700.css';
 
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import { ProductsApp } from 'ProductsApp';
+import ProductsApp from 'ProductsApp';
 import { persistor, store } from 'redux/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <ProductsApp />
+          <Toaster />
         </PersistGate>
       </Provider>
     </BrowserRouter>

@@ -9,7 +9,7 @@ import css from './Products.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { cartActions } from 'redux/cart/slice';
-import { useGetListQuery } from 'redux/products/slice';
+import { useGetProductsQuery } from 'redux/products/slice';
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Products = () => {
     data: products = [],
     isLoading: loading,
     error: errorMessage,
-  } = useGetListQuery({
+  } = useGetProductsQuery({
     rating_greater_than: 4.99,
     price_greater_than: 10,
   });

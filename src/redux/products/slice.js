@@ -47,7 +47,7 @@ export const productsApi = createApi({
   reducerPath: 'productsApi',
   tagTypes: ['Products'],
   endpoints: builder => ({
-    getList: builder.query({
+    getProducts: builder.query({
       query: params => ({ url: `products.json`, params }),
     }),
     createProduct: builder.mutation({
@@ -57,4 +57,4 @@ export const productsApi = createApi({
   }),
 });
 
-export const { useGetListQuery, useUpdateListMutation } = productsApi;
+export const { useGetProductsQuery, useUpdateListMutation } = productsApi;
