@@ -1,6 +1,6 @@
 import { cartReducer } from './cart/slice';
 import { filtersReducer } from './filters/slice';
-import { productsReducer } from './products/slice';
+import { productsApi, productsReducer } from './products/slice';
 import { tasksOptionsReducers, tasksReducer } from './tasks/slice';
 import { userReducer } from './user/slice';
 
@@ -11,6 +11,7 @@ const root = {
   products: productsReducer,
   cart: cartReducer,
   user: userReducer,
+  [productsApi.reducerPath]: productsApi.reducer,
 };
 
 export default root;

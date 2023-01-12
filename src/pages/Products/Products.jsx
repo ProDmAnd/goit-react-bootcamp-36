@@ -5,31 +5,24 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
-import { useEffect } from 'react';
 import css from './Products.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectProductsError,
-  selectProductsList,
-  selectProductsLoading,
-} from 'redux/products/selectors';
-import { getProductsList } from 'redux/products/actions';
+import { useDispatch } from 'react-redux';
 import { cartActions } from 'redux/cart/slice';
+import { useGetListQuery } from 'redux/products/slice';
 
 const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const products = useSelector(selectProductsList);
-  const errorMessage = useSelector(selectProductsError);
-  const loading = useSelector(selectProductsLoading);
-
-  useEffect(() => {
-    dispatch(
-      getProductsList({ rating_greater_than: 4.99, price_greater_than: 10 })
-    );
-  }, [dispatch]);
+  const {
+    data: products = [],
+    isLoading: loading,
+    error: errorMessage,
+  } = useGetListQuery({
+    rating_greater_than: 4.99,
+    price_greater_than: 10,
+  });
 
   const loadingText = !products.length ? (
     <h4>Loading...</h4>

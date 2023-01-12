@@ -10,6 +10,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { pokemonApi } from './pokemons';
+import { productsApi } from './products/slice';
 import reducer from './reducer';
 
 const persistedReducer = persistReducer(
@@ -24,7 +26,9 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    })
+      .concat(pokemonApi.middleware)
+      .concat(productsApi.middleware),
 });
 
 export const persistor = persistStore(store);
